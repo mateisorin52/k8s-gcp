@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2  # This action will clone your repository into the workspace
+
       - name: List Workspace Contents
         run: |
           ls -R
@@ -23,6 +26,6 @@ jobs:
 
           private-cluster: true
           manifests: |
-            manifests/app.deployment.yml
+            manifests/app.deployment.yaml
           images: |
             sorinmatei/tf-app:latest
