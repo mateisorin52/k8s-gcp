@@ -18,6 +18,8 @@ jobs:
           strategy: basic
 
           private-cluster: true
+          run: | 
+            ls
           manifests: |
               manifests/app.deployment.yaml
           images: |
