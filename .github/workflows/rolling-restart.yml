@@ -13,12 +13,17 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+
     - name: Create kubeconfig
       run: |
-        mkdir ${HOME}/.kube
-        echo ${{ secrets.KUBE_CONFIG }} | base64 --decode > ${HOME}/.kube/config
-        cat ${HOME}/.kube/config
+        mkdir -p ${{ github.workspace }}/.kube
+        echo ${{ secrets.KUBE_CONFIG }} | base64 --decode > ${{ github.workspace }}/.kube/config
+
+    - name: Print kubeconfig contents
+      run: cat ${{ github.workspace }}/.kube/config
+
     - name: Use context
-      run: kubectl config use-context gke_affable-context-393918_us-central1_k8s-cluster
+      run: kubectl get pods --kubeconfig=${{ github.workspace }}/.kube/config
+
     - name: Deploy to K8s
       run: kubectl apply -f manifests/
