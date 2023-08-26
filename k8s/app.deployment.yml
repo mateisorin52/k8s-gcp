@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tf-app-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: tf-app
+  template:
+    metadata:
+      labels:
+        app: tf-app
+    spec:
+      containers:
+        - name: tf-app-container
+          image: sorinmatei/tf-app:latest
+          imagePullPolicy: Always  # Set
+          ports:
+            - containerPort: 3000

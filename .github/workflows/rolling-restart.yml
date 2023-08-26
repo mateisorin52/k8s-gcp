@@ -1,0 +1,21 @@
+name: Rolling Restart
+
+on:
+  push:
+    branches:
+      - main  # Replace with the desired branch
+
+jobs:
+  trigger_rolling_restart:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up kubectl
+        uses: azure/k8s-set-context@v1
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+
+      - name: Trigger Rolling Restart
+        run: |
+          kubectl rollout restart deployment tf-app-deployment # -n your-namespace   Replace with your deployment name and namespace
