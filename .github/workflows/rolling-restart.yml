@@ -19,6 +19,6 @@ jobs:
         echo ${{ secrets.KUBE_CONFIG }} | base64 --decode > ${HOME}/.kube/config
         cat ${HOME}/.kube/config
     - name: Use context
-      run: kubectl config use-context octobay-api
+      run: kubectl config use-context gke_affable-context-393918_us-central1_k8s-cluster
     - name: Deploy to K8s
-      run: kubectl apply -f k8s/
+      run: kubectl apply -f manifests/
