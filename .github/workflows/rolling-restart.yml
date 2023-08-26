@@ -16,6 +16,7 @@ jobs:
 
     - name: Install gke-gcloud-auth-plugin
       run: |
+        sudo apt-get install kubectl
         gcloud components install kubectl
 
     - name: Create kubeconfig
