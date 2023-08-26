@@ -23,6 +23,6 @@ jobs:
 
           private-cluster: true
           manifests: |
-            manifests/app.deployment.yaml
+            manifests/app.deployment.yml
           images: |
             sorinmatei/tf-app:latest
