@@ -30,6 +30,6 @@ jobs:
           strategy: basic
           private-cluster: true
           manifests: |
-            manifests/app.deployment.yaml  # Corrected file path
+            manifests/app.deployment.yml  # Corrected file path
           images: |
             sorinmatei/tf-app:latest
