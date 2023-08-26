@@ -17,4 +17,4 @@ jobs:
           
       - name: Trigger Rolling Restart
         run: |
-          kubectl rollout restart deployment tf-app-deployment -n your-namespace  # Replace with your deployment name and namespace
+          kubectl rollout restart deployment tf-app-deployment #-n your-namespace   Replace with your deployment name and namespace
