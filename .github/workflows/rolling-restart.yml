@@ -10,6 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: List Workspace Contents
+        run: |
+          ls -R
+
       - uses: Azure/k8s-deploy@v4
         with:
           resource-group: yourResourceGroup
@@ -18,10 +22,7 @@ jobs:
           strategy: basic
 
           private-cluster: true
-          run: | 
-            ls
           manifests: |
-              manifests/app.deployment.yaml
+            manifests/app.deployment.yaml
           images: |
-              sorinmatei/tf-app:latest
-
+            sorinmatei/tf-app:latest
