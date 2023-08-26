@@ -1,37 +1,24 @@
-name: Rolling Restart
+name: Deploy to Kubernetes
 
 on:
   push:
-    branches:
-      - main  # Replace with the desired branch
+    branches: main
+  pull_request:
+    branches: main
 
 jobs:
-  trigger_rolling_restart:
+  deploy:
+    name: Deploy to Kubernetes
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2  # This action will clone your repository into the workspace
-
-      - name: List Workspace Contents
-        run: |
-          ls -R
-          cd manifests
-          ls -R
-
-      - name: Set Kubernetes Context
-        uses: azure/k8s-set-context@v1
-        with:
-          kubeconfig: ${{ secrets.KUBE_CONFIG }}
-
-      - uses: Azure/k8s-deploy@v4
-        with:
-          resource-group: yourResourceGroup
-          name: yourClusterName
-          action: deploy
-          strategy: basic
-          private-cluster: true
-          manifests: |
-            manifests/app.deployment.yml  # Corrected file path
-          images: |
-            sorinmatei/tf-app:latest
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Create kubeconfig
+      run: |
+        mkdir ${HOME}/.kube
+        echo ${{ secrets.KUBE_CONFIG }} | base64 --decode > ${HOME}/.kube/config
+        cat ${HOME}/.kube/config
+    - name: Use context
+      run: kubectl config use-context octobay-api
+    - name: Deploy to K8s
+      run: kubectl apply -f k8s/
