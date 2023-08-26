@@ -15,6 +15,6 @@ jobs:
         with:
           kubeconfig: ${{ secrets.KUBE_CONFIG }}
           
-      - name: Trigger Rolling Restart
+      - name: Trigger Rolling Restarts
         run: |
           kubectl rollout restart deployment tf-app-deployment #-n your-namespace   Replace with your deployment name and namespace
