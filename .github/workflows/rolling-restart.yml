@@ -11,11 +11,10 @@ jobs:
 
     steps:
       - name: Set up kubectl
-        uses: azure/k8s-set-context@v1
+        uses: azure/setup-kubectl@v1
         with:
-          method: kubeconfig
           kubeconfig: ${{ secrets.KUBE_CONFIG }}
-
+          
       - name: Trigger Rolling Restart
         run: |
-          kubectl rollout restart deployment tf-app-deployment # -n your-namespace   Replace with your deployment name and namespace
+          kubectl rollout restart deployment tf-app-deployment -n your-namespace  # Replace with your deployment name and namespace
