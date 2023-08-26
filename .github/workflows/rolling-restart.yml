@@ -16,6 +16,8 @@ jobs:
       - name: List Workspace Contents
         run: |
           ls -R
+          cd manifests
+          ls -R
 
       - name: Set Kubernetes Context
         uses: azure/k8s-set-context@v1
