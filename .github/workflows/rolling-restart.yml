@@ -11,15 +11,15 @@ jobs:
 
     steps:
       - uses: Azure/k8s-deploy@v4
-      with:
-        resource-group: yourResourceGroup
-        name: yourClusterName
-        action: deploy
-        strategy: basic
+        with:
+          resource-group: yourResourceGroup
+          name: yourClusterName
+          action: deploy
+          strategy: basic
 
-        private-cluster: true
-        manifests: |
-            manifests/app.deployment.yaml
-        images: |
-            registry.azurecr.io/containername
+          private-cluster: true
+          manifests: |
+              manifests/app.deployment.yaml
+          images: |
+              registry.azurecr.io/containername
 
