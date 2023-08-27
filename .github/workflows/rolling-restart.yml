@@ -21,8 +21,8 @@ jobs:
 
     - name: Print kubeconfig contents
       run: cat ${{ github.workspace }}/.kube/config
-    - name: Ceva
-      run: kubectl get pods --kubeconfig=${{ github.workspace }}/.kube/config
+    # - name: Ceva
+    #   run: kubectl get pods --kubeconfig=${{ github.workspace }}/.kube/config
     - name: Use context
       uses: azure/k8s-set-context@v3
       with:
