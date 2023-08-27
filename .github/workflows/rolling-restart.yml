@@ -34,5 +34,7 @@ jobs:
         GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
       run: |
         gcloud container clusters get-credentials k8s-cluster --region us-central1
-        sed -i "s/GOOGLE_PROJECT/$GOOGLE_PROJECT/g" manifests
-        kubectl apply -f manifests
+        for manifest in manifests/*.yml; do
+          sed -i "s/GOOGLE_PROJECT/$GOOGLE_PROJECT/g" $manifest
+          kubectl apply -f $manifest
+        done
