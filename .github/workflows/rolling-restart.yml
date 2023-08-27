@@ -7,33 +7,9 @@ on:
     branches: main
 
 jobs:
-  job_id:
-    name: setup gcp
-    runs-on: ubuntu-latest
-    permissions:
-      contents: 'read'
-      id-token: 'write'
-
-    steps:
-    - id: 'auth'
-      uses: 'google-github-actions/auth@v1'
-      with:
-        workload_identity_provider: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
-        service_account: 'my-service-account@my-project.iam.gserviceaccount.com'
-
-    - name: 'Set up Cloud SDK'
-      uses: 'google-github-actions/setup-gcloud@v1'
-      with:
-        version: '>= 363.0.0'
-
-    - name: 'Use gcloud CLI'
-      run: 'gcloud info'
   deploy:
     name: Deploy to Kubernetes
     runs-on: ubuntu-latest
-    permissions:
-      contents: 'read'
-      id-token: 'write'
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -53,18 +29,6 @@ jobs:
         method: kubeconfig
         kubeconfig: ${{ github.workspace }}/.kube/config
         # context: gke_affable-context-393918_us-central1_k8s-cluster  # current-context from kubeconfig is used as default
-    - id: 'auth'
-      uses: 'google-github-actions/auth@v1'
-      with:
-        workload_identity_provider: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
-        service_account: 'my-service-account@my-project.iam.gserviceaccount.com'
 
-    - name: 'Set up Cloud SDK'
-      uses: 'google-github-actions/setup-gcloud@v1'
-      with:
-        version: '>= 363.0.0'
-
-    - name: 'Use gcloud CLI'
-      run: 'gcloud info'
     - name: Deploy to K8s
-      run: kubectl apply -f manifests/ --kubeconfig=${{ github.workspace }}/.kube/config
+      run: kubectl apply -f manifests/
