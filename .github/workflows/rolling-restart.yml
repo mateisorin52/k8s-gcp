@@ -29,5 +29,12 @@ jobs:
         method: kubeconfig
         kubeconfig: ${{ github.workspace }}/.kube/config
         # context: gke_affable-context-393918_us-central1_k8s-cluster  # current-context from kubeconfig is used as default
+    - name: Set up Google Cloud SDK
+      run: |
+        # Install Google Cloud SDK
+        curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-355.0.0-linux-x86_64.tar.gz
+        tar xf google-cloud-sdk-355.0.0-linux-x86_64.tar.gz
+        ./google-cloud-sdk/install.sh
+        ./google-cloud-sdk/bin/gcloud components update
     - name: Deploy to K8s
       run: kubectl apply -f manifests/ --kubeconfig=${{ github.workspace }}/.kube/config
