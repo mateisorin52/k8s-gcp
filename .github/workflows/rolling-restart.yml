@@ -16,7 +16,7 @@ jobs:
 
     - name: Create kubeconfig
       run: |
-        mkdir -p /.kube
+        mkdir -p ${{ github.workspace }}/.kube
         echo ${{ secrets.KUBE_CONFIG }} | base64 --decode > ${{ github.workspace }}/.kube/config
 
     - name: Print kubeconfig contents
@@ -30,4 +30,4 @@ jobs:
         kubeconfig: ${{ github.workspace }}/.kube/config
         # context: gke_affable-context-393918_us-central1_k8s-cluster  # current-context from kubeconfig is used as default
     - name: Deploy to K8s
-      run: kubectl apply -f manifests/
+      run: kubectl apply -f manifests/ --kubeconfig=${{ github.workspace }}/.kube/config
