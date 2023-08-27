@@ -21,7 +21,7 @@ jobs:
           export_default_credentials: true
 
       - name: Authenticate with GKE Cluster
-        run: gcloud container clusters get-credentials k8s-cluster --us-central1
+        run: gcloud container clusters get-credentials k8s-cluster us-central1
 
       - name: Deploy to GKE
         run: kubectl apply -f manifests/
